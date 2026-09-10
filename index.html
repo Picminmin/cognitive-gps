@@ -1,72 +1,196 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="theme-color" content="#0b1020" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Cognitive GPS" />
-<link rel="manifest" href="./manifest.webmanifest" />
-<link rel="apple-touch-icon" href="./icons/icon-180.png" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#07101f"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Cognitive GPS"/>
+<link rel="manifest" href="./manifest.webmanifest"/>
+<link rel="apple-touch-icon" href="./icons/icon-180.png"/>
 <title>Cognitive GPS</title>
 <style>
-:root{--bg:#07101f;--panel:#0f1a2e;--panel2:#14233d;--text:#eef5ff;--muted:#9fb0c8;--accent:#62d6ff;--accent2:#8df0bd;--warn:#ffd479;--line:#243a5d}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07101f,#0b1425);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}.app{max-width:760px;margin:auto;padding:calc(20px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.brand{font-weight:800;letter-spacing:.2px}.pill{font-size:12px;padding:7px 10px;border-radius:999px;background:#10233c;color:var(--accent2);border:1px solid #214667}.hero,.card{background:rgba(15,26,46,.94);border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 40px rgba(0,0,0,.24)}.hero{padding:22px}.hero h1{font-size:28px;line-height:1.15;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.65;margin:0}.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}.card{padding:18px}.label{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}textarea,input,select{width:100%;background:#091526;color:var(--text);border:1px solid #294362;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:90px;resize:vertical}button{width:100%;border:0;border-radius:14px;padding:14px 16px;font-size:16px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#052033;margin-top:10px}.secondary{background:#12223a;color:var(--text);border:1px solid #2d4768}.map{margin-top:10px}.node{display:flex;gap:12px;align-items:flex-start;padding:12px 0;position:relative}.node:not(:last-child):after{content:"";position:absolute;left:16px;top:39px;bottom:-4px;width:2px;background:#2a4263}.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#183150;border:1px solid #31567f;font-weight:800;flex:0 0 auto}.node.done .dot{background:#173c31;color:var(--accent2)}.node.current .dot{background:#16384d;color:var(--accent);box-shadow:0 0 0 4px rgba(98,214,255,.08)}.node .name{font-weight:800}.node .sub{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}.why{margin-top:8px;padding:10px 12px;border-radius:12px;background:#0a182a;color:#c9d7ea;font-size:13px;line-height:1.55;border-left:3px solid var(--accent)}.route-step{padding:14px;border:1px solid #27415f;border-radius:16px;margin-top:10px;background:#0b182a}.route-step b{display:block;margin-bottom:6px}.route-step small{color:var(--muted);line-height:1.5}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#0a1728;border:1px solid #233b5a;border-radius:14px;padding:12px;text-align:center}.stat strong{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}.history{font-size:14px;color:#d5e0ef;line-height:1.6}.tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}.hidden{display:none}@media(min-width:700px){.grid.two{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}}
+:root{--bg:#07101f;--panel:#0e1a2d;--panel2:#0a1728;--text:#eef6ff;--muted:#9fb2cb;--cyan:#63d8ff;--mint:#82edbd;--warn:#ffd479;--red:#ff9f9f;--line:#284363}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:linear-gradient(180deg,#07101f,#0a1424);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}.app{max-width:760px;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 14px calc(88px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-weight:850}.pill{font-size:11px;padding:7px 10px;border-radius:999px;background:#10233b;color:var(--mint);border:1px solid #22506d}
+.hero,.card{background:rgba(14,26,45,.96);border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 36px rgba(0,0,0,.22)}.hero{padding:20px}.hero h1{margin:0 0 8px;font-size:26px;line-height:1.15}.hero p,.tiny{color:var(--muted);line-height:1.65}.grid{display:grid;gap:14px;margin-top:14px}.card{padding:17px}.label{font-size:12px;color:var(--cyan);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+textarea,input,select{width:100%;background:#071525;color:var(--text);border:1px solid #2b486a;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:86px;resize:vertical}
+button{width:100%;border:0;border-radius:14px;padding:14px 15px;font-size:16px;font-weight:850;background:linear-gradient(90deg,var(--cyan),var(--mint));color:#052033;margin-top:10px}.secondary{background:#12243a;color:var(--text);border:1px solid #315170}.ghost{background:#091827;color:var(--cyan);border:1px solid #2c536c}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#091725;border:1px solid #253f5d;border-radius:14px;padding:12px;text-align:center}.stat strong{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}
+.node{display:flex;gap:12px;padding:11px 0;position:relative}.node:not(:last-child):after{content:"";position:absolute;left:16px;top:38px;bottom:-4px;width:2px;background:#2a4566}.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;background:#183250;border:1px solid #355d86;font-weight:800}.node.done .dot{background:#163a30;color:var(--mint)}.node.current .dot{background:#163b50;color:var(--cyan);box-shadow:0 0 0 4px rgba(99,216,255,.09)}.name{font-weight:820}.sub{font-size:13px;color:var(--muted);margin-top:3px}.why,.lessonBox,.hint,.result{margin-top:9px;padding:12px;border-radius:13px;background:#091827;line-height:1.65}.why{border-left:3px solid var(--cyan);color:#cfdded;font-size:13px}.lessonBox h2{font-size:22px;margin:0 0 8px}.lessonBox h3{font-size:16px;margin:16px 0 7px;color:var(--mint)}.lessonBox p{margin:7px 0;color:#dbe7f6}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#06111e;border:1px solid #203b58;border-radius:11px;padding:11px;overflow:auto;margin:9px 0;color:#eaf5ff;white-space:pre-wrap}.example{border-left:3px solid var(--mint);padding-left:11px}.checkpoint{margin-top:14px;padding-top:13px;border-top:1px solid #28415e}.option{display:block;width:100%;text-align:left;margin-top:8px;background:#0a192a;border:1px solid #2c4868;border-radius:12px;padding:12px;color:var(--text);font-size:15px}.option.selected{outline:2px solid var(--cyan)}.result.ok{border-left:3px solid var(--mint)}.result.ng{border-left:3px solid var(--warn)}.hidden{display:none}
+.route{display:flex;gap:8px;overflow:auto;padding-bottom:3px}.routeTag{flex:0 0 auto;border:1px solid #2b496a;background:#091827;border-radius:999px;padding:7px 10px;font-size:12px;color:#cfe3f5}.routeTag.current{color:#07101f;background:var(--cyan);font-weight:800}
+.historyItem{padding:10px 0;border-bottom:1px solid #203954;font-size:13px;line-height:1.55}.kbd{display:inline-block;padding:2px 7px;border:1px solid #315170;border-radius:8px;background:#0a1828;font-size:12px}
+.bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(760px,100%);padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(7,16,31,0),rgba(7,16,31,.98) 35%)}.bottomNav{display:grid;grid-template-columns:repeat(4,1fr);background:#0d1b2e;border:1px solid #294561;border-radius:18px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.3)}.bottomNav button{margin:0;padding:10px 4px;background:transparent;color:var(--muted);font-size:11px}.bottomNav button.active{background:#152a43;color:var(--cyan)}
+section.screen{display:none}section.screen.active{display:block}@media(min-width:700px){.grid.two{grid-template-columns:1fr 1fr}.hero h1{font-size:32px}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top"><div class="brand">🧭 Cognitive GPS</div><div class="pill">LOCAL-FIRST</div></div>
-  <section class="hero"><h1>学習の「現在地」から、<br>次の一歩を案内する。</h1><p>目的地を能力として定義し、知識ノードを地図化。理解度と過去のつまずきから、今日の最短ルートを再計算します。</p></section>
+  <div class="top"><div class="brand">🧭 Cognitive GPS</div><div class="pill">v0.2 · OFFLINE</div></div>
 
-  <div class="grid two">
-    <section class="card">
-      <div class="label">Destination</div>
-      <textarea id="goal" placeholder="例：Self-Attentionを数式まで理解し、自分の言葉で説明・実装できるようになる"></textarea>
-      <div class="label" style="margin-top:14px">You are here</div>
-      <textarea id="current" placeholder="例：Embeddingは理解している。Q/K/Vは名前だけ知っている"></textarea>
-      <button id="planBtn">ルートを再計算</button>
-    </section>
-    <section class="card">
-      <div class="label">Navigation status</div>
-      <div class="stats"><div class="stat"><strong id="progress">0%</strong><span>到達度</span></div><div class="stat"><strong id="logs">0</strong><span>経験ログ</span></div><div class="stat"><strong id="streak">0</strong><span>前進回数</span></div></div>
-      <div class="tiny">この試作版は端末内だけに保存します。外部APIへ学習内容は送信しません。</div>
-    </section>
-  </div>
-
-  <section class="card" style="margin-top:14px">
-    <div class="label">Knowledge map</div><div id="map" class="map"></div>
+  <section id="screenHome" class="screen active">
+    <div class="hero"><h1>現在地から、<br>学べるGPSへ。</h1><p>外部APIなし。説明・小問・再ルーティング・経験ログをすべて端末内で動かします。</p></div>
+    <div class="grid two">
+      <div class="card">
+        <div class="label">Destination</div>
+        <select id="course">
+          <option value="attention">Self-Attentionを自分の言葉で説明する</option>
+          <option value="transformer">Transformer全体を説明する</option>
+          <option value="ml">機械学習の基礎を説明する</option>
+          <option value="python">Python基礎を身につける</option>
+        </select>
+        <div class="label" style="margin-top:14px">You are here</div>
+        <textarea id="current" placeholder="今わかっていること・曖昧なことを書いてください"></textarea>
+        <button id="diagnoseBtn">現在地を診断してルート作成</button>
+      </div>
+      <div class="card">
+        <div class="label">Navigation status</div>
+        <div class="stats"><div class="stat"><strong id="progress">0%</strong><span>到達度</span></div><div class="stat"><strong id="mastered">0</strong><span>通過ノード</span></div><div class="stat"><strong id="logs">0</strong><span>経験ログ</span></div></div>
+        <div class="tiny">通信は不要です。初回読み込み後はオフラインでも動作します。学習記録はこの端末のlocalStorageだけに保存されます。</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px"><div class="label">Knowledge map</div><div id="map"></div></div>
   </section>
 
-  <section class="card" style="margin-top:14px">
-    <div class="label">Today's route</div><div id="route"></div>
+  <section id="screenLearn" class="screen">
+    <div class="card">
+      <div class="label">Current route</div><div id="routeStrip" class="route"></div>
+      <div id="lesson" class="lessonBox"></div>
+      <div id="checkpoint" class="checkpoint"></div>
+    </div>
   </section>
 
-  <section class="card" style="margin-top:14px">
-    <div class="label">Experience protocol</div>
-    <select id="understanding"><option value="3">理解できた</option><option value="2">だいたい理解</option><option value="1">まだ曖昧</option><option value="0">分からない</option></select>
-    <textarea id="stuck" placeholder="どこで詰まった？" style="margin-top:10px"></textarea>
-    <textarea id="breakthrough" placeholder="何が突破口になった？" style="margin-top:10px"></textarea>
-    <textarea id="future" placeholder="次回の自分への一言" style="margin-top:10px"></textarea>
-    <button id="saveBtn">経験を保存して再ルーティング</button>
-    <button class="secondary" id="resetBtn">端末内データをリセット</button>
+  <section id="screenAsk" class="screen">
+    <div class="card">
+      <div class="label">Ask ChatGPT</div>
+      <h2 style="margin-top:0">分からない地点を持ち出す</h2>
+      <p class="tiny">このアプリ自身はLLMに接続しません。現在地・理解・つまずきを質問文にまとめてコピーできます。</p>
+      <textarea id="askStuck" placeholder="具体的に何が分からない？"></textarea>
+      <button id="copyPromptBtn">質問文をコピー</button>
+      <div id="copyStatus" class="tiny"></div>
+      <div class="hint"><b>使い方</b><br>1. 質問文をコピー<br>2. ChatGPTに貼り付けて質問<br>3. 腑に落ちた内容をCognitive GPSへ戻して「突破口」として記録</div>
+    </div>
   </section>
 
-  <section class="card" style="margin-top:14px"><div class="label">Past experience</div><div id="history" class="history">まだ記録はありません。</div></section>
+  <section id="screenLog" class="screen">
+    <div class="card">
+      <div class="label">Experience protocol</div>
+      <p class="tiny">E = (S, A, O, ΔK) — 状況・試したこと・結果・得た理解を、次回の自分が使える形で残します。</p>
+      <textarea id="actionTried" placeholder="A: 何を試した？"></textarea>
+      <textarea id="outcome" placeholder="O: どうなった？" style="margin-top:9px"></textarea>
+      <textarea id="deltaK" placeholder="ΔK: 何が分かった？" style="margin-top:9px"></textarea>
+      <button id="saveLogBtn">経験を保存</button>
+      <div id="history"></div>
+      <button class="secondary" id="resetBtn">端末内データをリセット</button>
+    </div>
+  </section>
 </div>
+
+<div class="bottom"><div class="bottomNav">
+<button data-screen="Home" class="active">⌂<br>地図</button>
+<button data-screen="Learn">▶<br>学習</button>
+<button data-screen="Ask">↗<br>質問</button>
+<button data-screen="Log">◇<br>経験</button>
+</div></div>
+
 <script>
-const KEY='cognitiveGPS.v3';
-const defaultNodes=['現在地を言語化する','前提概念を確認する','中心概念を直感で理解する','数式・構造に落とす','具体例で検証する','自分の言葉で説明する','小さく実装する','目的地に到達'];
-let state=JSON.parse(localStorage.getItem(KEY)||'null')||{goal:'',current:'',idx:0,logs:[],streak:0};
-const $=id=>document.getElementById(id);$('goal').value=state.goal;$('current').value=state.current;
-function inferNodes(goal){const g=goal.toLowerCase();if(g.includes('attention')||g.includes('transformer'))return ['Embedding / token表現','Q・K・Vの役割','Attention scoreとsoftmax','重み付き和としてのAttention','Multi-Head Attention','Transformer全体との接続','数式を自分で説明','最小実装'];if(g.includes('python'))return ['文法の基礎','データ型と制御構文','関数','コレクション','例外とデバッグ','小さなスクリプト','ライブラリ利用','自力で実装'];if(g.includes('機械学習')||g.includes('machine learning'))return ['教師あり学習の目的','特徴量とラベル','損失関数','最適化','過学習と汎化','評価指標','モデル比較','小規模実装'];return defaultNodes}
-function whyFor(n,i){const reasons=['目的地への経路を正しく引くには、まず現在地の誤差を減らす必要があります。','先に前提を埋めることで、この先の説明を暗記ではなく構造として理解できます。','抽象概念はまず直感モデルを作ると、数式の各項に意味が乗ります。','直感を数式へ変換することで、説明可能な理解へ進みます。','具体例で予測と結果を照合し、誤解を早期に発見します。','説明できるかを試すと「分かったつもり」を検出できます。','実装は知識の抜けを強制的に露出させます。','ここまでできれば、目的地を「知っている」から「使える」へ移せます。'];return reasons[Math.min(i,reasons.length-1)]}
-function render(){const nodes=inferNodes(state.goal);state.idx=Math.max(0,Math.min(state.idx,nodes.length-1));$('progress').textContent=Math.round((state.idx/(nodes.length-1))*100)+'%';$('logs').textContent=state.logs.length;$('streak').textContent=state.streak;$('map').innerHTML=nodes.map((n,i)=>`<div class="node ${i<state.idx?'done':i===state.idx?'current':''}"><div class="dot">${i<state.idx?'✓':i===state.idx?'◎':i+1}</div><div><div class="name">${n}${i===state.idx?' <span style="color:#62d6ff;font-size:11px">YOU ARE HERE</span>':''}</div><div class="sub">${i<state.idx?'通過済み':i===state.idx?'現在の推奨チェックポイント':'この先の経路'}</div>${i===state.idx?`<div class="why"><b>WHY NOW</b><br>${whyFor(n,i)}</div>`:''}</div></div>`).join('');const steps=[state.idx,Math.min(state.idx+1,nodes.length-1)].filter((v,i,a)=>a.indexOf(v)===i);$('route').innerHTML=steps.map((i,k)=>`<div class="route-step"><b>${k===0?'1. 今やる':'2. 次に進む'} — ${nodes[i]}</b><small>${whyFor(nodes[i],i)}</small></div>`).join('');$('history').innerHTML=state.logs.length?state.logs.slice().reverse().slice(0,6).map(x=>`<div style="padding:10px 0;border-bottom:1px solid #213856"><b>${new Date(x.time).toLocaleDateString('ja-JP')}</b> 理解度 ${x.u}/3<br>${x.stuck?`詰まり：${x.stuck}<br>`:''}${x.breakthrough?`突破口：${x.breakthrough}<br>`:''}${x.future?`次回：${x.future}`:''}</div>`).join(''):'まだ記録はありません。';localStorage.setItem(KEY,JSON.stringify(state))}
-$('planBtn').onclick=()=>{state.goal=$('goal').value.trim();state.current=$('current').value.trim();if(!state.goal){alert('まず目的地を入力してください');return}render()};
-$('saveBtn').onclick=()=>{if(!state.goal){state.goal=$('goal').value.trim()}const u=Number($('understanding').value);state.logs.push({time:Date.now(),u,stuck:$('stuck').value.trim(),breakthrough:$('breakthrough').value.trim(),future:$('future').value.trim(),idx:state.idx});if(u>=2){state.idx++;state.streak++}else if(u===0&&state.idx>0){state.idx--}['stuck','breakthrough','future'].forEach(id=>$(id).value='');render()};
-$('resetBtn').onclick=()=>{if(confirm('端末内のCognitive GPSデータを削除しますか？')){localStorage.removeItem(KEY);location.reload()}};
-render();
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+const KEY='cognitiveGPS.offline.v02';
+const C={
+attention:[
+{t:'Embedding / token表現',keys:['embedding','トークン','ベクトル','埋め込み'],body:`<h2>1. Embedding / token表現</h2><p>Self-Attentionは、単語そのものではなく<strong>各tokenを表すベクトル</strong>を入力として受け取ります。</p><h3>直感</h3><p>token IDは「辞書の何番目か」という住所。Embeddingは、その住所から取り出す<strong>意味処理用の座標</strong>です。</p><div class="formula">token id → embedding vector x ∈ R^d</div><div class="example"><b>例</b><br>「猫」「好き」は別々のIDを持ち、それぞれd次元ベクトルへ変換されます。Attentionが直接見るのはこのベクトルです。</div>`,q:'Self-Attentionに直接入力されるものとして最も近いのは？',opts:['日本語の文字そのもの','tokenを表すベクトル','品詞ラベルだけ'],a:1,why:'Self-AttentionはEmbeddingなどで得たベクトル表現を計算対象にします。'},
+{t:'Q・K・Vの役割',keys:['q','k','v','query','key','value'],body:`<h2>2. Q・K・Vの役割</h2><p>各tokenの表現 x から、3種類の見方を線形変換で作ります。</p><div class="formula">Q = XW_Q\nK = XW_K\nV = XW_V</div><h3>検索の比喩</h3><p><b>Q (Query)</b> = 私はいま何を探している？<br><b>K (Key)</b> = 私は何に関する情報を持っている？<br><b>V (Value)</b> = 注目されたら何を渡す？</p><div class="example"><b>重要</b><br>Q/K/Vは「tokenごとに固定された意味」ではなく、同じtoken表現から学習可能な行列で作られる別々の投影です。</div>`,q:'QとKを主に使って決めるものは？',opts:['どのtokenをどれだけ参照するか','語彙IDそのもの','損失関数の種類'],a:0,why:'QとKの類似度からAttention weightの元になるscoreを作ります。'},
+{t:'Attention score',keys:['内積','score','softmax'],body:`<h2>3. Attention score と Softmax</h2><p>あるtokenのQueryと、すべてのtokenのKeyを比較します。</p><div class="formula">score(i,j) = q_i · k_j / √d_k\nα_ij = softmax_j(score(i,j))</div><p>√d_kで割るのは、次元が大きいと内積が大きくなりSoftmaxが極端になりやすいからです。</p><h3>何が得られる？</h3><p>α_ij は「token i が token j をどれくらい参照するか」という重みです。各iについてj方向に合計すると1になります。</p>`,q:'Softmax後のα_ijの意味として最も近いのは？',opts:['token jの文字コード','iがjを参照する相対的な重み','学習率'],a:1,why:'Softmaxはscoreを正規化し、参照の重みとして扱える形にします。'},
+{t:'Valueの重み付き和',keys:['重み付き和','weighted','value'],body:`<h2>4. Valueの重み付き和</h2><p>Attentionの出力は、決めた重みでValueを混ぜたものです。</p><div class="formula">z_i = Σ_j α_ij v_j\n\nAttention(Q,K,V)=softmax(QKᵀ/√d_k)V</div><p>つまりQ/Kは<strong>「誰を見るか」</strong>を決め、Vは<strong>「そこから何を受け取るか」</strong>を担います。</p><div class="example"><b>一文で</b><br>Self-Attentionは「各tokenが、他のtokenから必要な情報を重み付きで集めて、自分の表現を更新する仕組み」です。</div>`,q:'Attentionの最終出力に直接混ぜられるのは？',opts:['Value','Keyだけ','token ID'],a:0,why:'重みαをValueに掛けて和を取ることで出力を作ります。'},
+{t:'Multi-Head Attention',keys:['multi','head','ヘッド'],body:`<h2>5. Multi-Head Attention</h2><p>1組のQ/K/Vだけでなく、複数組を並列に作ります。</p><div class="formula">head_h = Attention(XW_Q^h, XW_K^h, XW_V^h)\nMHA = Concat(head_1,...,head_H)W_O</div><p>異なるheadが必ず「文法」「意味」など明確な役割を持つとは限りません。重要なのは、<strong>複数の投影空間で関係を捉えられる</strong>ことです。</p>`,q:'Multi-Headにする主な狙いは？',opts:['複数の表現空間で関係を捉える','token数を0にする','Softmaxを不要にする'],a:0,why:'各headは異なるW_Q/W_K/W_Vを持ち、別の投影で関係を捉えられます。'},
+{t:'Transformerとの接続',keys:['residual','layernorm','ffn','transformer'],body:`<h2>6. Transformerとの接続</h2><p>Self-AttentionだけでTransformer層が完成するわけではありません。典型的にはAttentionの周辺にResidual、正規化、FFNなどがあります。</p><div class="formula">X → Self-Attention → Add/Norm → FFN → Add/Norm → next layer</div><p>Attentionはtoken間で情報を交換し、FFNは各token位置で表現を変換します。</p>`,q:'AttentionとFFNの違いとして近いのは？',opts:['Attentionはtoken間の情報交換、FFNは各位置での変換','どちらも完全に同じ','FFNだけがtoken間を混ぜる'],a:0,why:'Attentionは位置をまたいで混合し、FFNは基本的に位置ごとに同じネットワークを適用します。'},
+{t:'自分の言葉で説明',keys:['説明','自分の言葉'],body:`<h2>7. 自分の言葉で説明</h2><p>次の型を使わず、自分の言葉で30秒説明してみてください。</p><div class="formula">入力X → Q/K/V → QKᵀ → scale → softmax → Vの重み付き和</div><p>説明後、下の問題に答えられれば「分かったつもり」をかなり減らせます。</p>`,q:'Q/K/Vを一言で対応させるなら？',opts:['探す観点 / 見つけられる特徴 / 受け取る内容','入力 / 正解 / 損失','文字 / 単語 / 文'],a:0,why:'検索の比喩としてこの対応が最も近いです。'},
+{t:'最小実装',keys:['実装','numpy','コード'],body:`<h2>8. 最小実装</h2><p>最後に式をコードへ落とします。外部ライブラリ不要の擬似コードで構造を確認します。</p><div class="formula">Q = X @ Wq\nK = X @ Wk\nV = X @ Wv\nscores = (Q @ K.T) / sqrt(dk)\nweights = softmax(scores, axis=-1)\nout = weights @ V</div><p>この6行の意味を上から説明できれば、目的地に到達です。</p>`,q:'weights @ V がしていることは？',opts:['Valueの重み付き和を作る','tokenizeする','勾配を0にする'],a:0,why:'各Queryについて、softmaxで得た参照重みに従ってValueを混ぜます。'}
+],
+transformer:[],ml:[],python:[]
+};
+C.transformer=[
+{t:'token化とEmbedding',keys:['token','embedding'],body:`<h2>token化とEmbedding</h2><p>文章をtoken列へ分割し、IDをEmbeddingベクトルへ写します。</p><div class="formula">text → token ids → X ∈ R^(n×d)</div>`,q:'Embeddingの役割は？',opts:['token IDをベクトル表現へ写す','文章を印刷する','lossを0に固定する'],a:0,why:'Transformer内部の計算は主にベクトルで行います。'},
+...C.attention.slice(1,6),
+{t:'Residual / Norm / FFN',keys:['ffn','residual','norm'],body:`<h2>Residual・Norm・FFN</h2><p>Attention出力に残差接続や正規化を組み合わせ、FFNで各token表現を非線形変換します。</p><div class="formula">H = Norm(X + Attention(X))\nY = Norm(H + FFN(H))</div>`,q:'Residual接続の形に近いのは？',opts:['x + F(x)','F(x)だけ','xを必ず0にする'],a:0,why:'入力を変換結果へ足し戻す構造がResidualです。'},
+{t:'次token予測',keys:['next token','logit','予測'],body:`<h2>次token予測</h2><p>Decoder型LLMでは最終hidden stateから語彙サイズのlogitsを作り、次token分布へ変換します。</p><div class="formula">h_t → W_vocab h_t → logits → softmax → P(token_{t+1})</div>`,q:'logitsの次に得たいものは？',opts:['次tokenの確率分布','画像の画素だけ','データベース行'],a:0,why:'Softmaxを通して語彙上の確率分布として扱います。'}
+];
+C.ml=[
+{t:'教師あり学習',keys:['教師','ラベル','supervised'],body:`<h2>教師あり学習の目的</h2><p>入力xから正解yを予測する関数fθを、データから学習します。</p><div class="formula">ŷ=fθ(x)</div>`,q:'教師あり学習で通常必要なものは？',opts:['入力と正解ラベルの組','正解のない入力だけ','乱数だけ'],a:0,why:'教師あり学習は入力と対応する教師信号を使います。'},
+{t:'損失関数',keys:['loss','損失'],body:`<h2>損失関数</h2><p>予測と正解のズレを数値化し、学習の向きを作ります。</p><div class="formula">L(θ)=Σ ℓ(fθ(x_i),y_i)</div>`,q:'損失関数の役割は？',opts:['予測誤差を数値化する','データを必ず増やす','CPUを冷やす'],a:0,why:'最適化はこの損失を小さくする方向へ進みます。'},
+{t:'最適化',keys:['勾配','gradient','最適化'],body:`<h2>最適化</h2><p>勾配は、パラメータを少し変えたとき損失がどちらへ増えるかを示します。</p><div class="formula">θ ← θ - η∇θL</div>`,q:'ηは何を表す？',opts:['学習率','クラス数','画像サイズ'],a:0,why:'学習率は一回の更新量を調整します。'},
+{t:'過学習と汎化',keys:['過学習','汎化','generalization'],body:`<h2>過学習と汎化</h2><p>訓練データだけに適合し、未知データで性能が落ちるのが過学習。未知データでも働く能力が汎化です。</p>`,q:'testデータをモデル選択に何度も使う問題は？',opts:['test leakageにつながる','必ず精度が公平になる','学習率が消える'],a:0,why:'testを意思決定に使うと最終評価が楽観的になり得ます。'},
+{t:'評価指標',keys:['oa','aa','mcc','評価'],body:`<h2>評価指標</h2><p>Accuracyだけでなく、クラス不均衡ではMacro系指標やMCCなども有用です。目的に合わせて指標を選びます。</p>`,q:'クラス不均衡が強いときAccuracyだけで十分？',opts:['常に十分','他指標も併用した方がよい','評価は不要'],a:1,why:'多数派クラスだけ当ててもAccuracyが高く見える場合があります。'},
+{t:'モデル比較',keys:['baseline','比較'],body:`<h2>モデル比較</h2><p>同じsplit・同じ評価条件でbaselineと提案法を比較し、何が効いたかはablationで切り分けます。</p>`,q:'ablationの目的は？',opts:['構成要素ごとの寄与を調べる','データを隠す','結果を良く見せる'],a:0,why:'要素を外した比較で、その要素の効果を検証します。'}
+];
+C.python=[
+{t:'変数と型',keys:['変数','int','str','list'],body:`<h2>変数と型</h2><p>値に名前を付け、int/float/str/list/dictなどの型として扱います。</p><div class="formula">x = 3\nname = "GPS"\nxs = [1,2,3]</div>`,q:'複数の値を順序付きで持つ代表的な型は？',opts:['list','boolだけ','Noneだけ'],a:0,why:'listは複数要素を順序付きで保持します。'},
+{t:'条件分岐と反復',keys:['if','for','while'],body:`<h2>条件分岐と反復</h2><div class="formula">for x in xs:\n    if x > 1:\n        print(x)</div><p>制御構文は「どの処理を、いつ、何回行うか」を記述します。</p>`,q:'forの主用途は？',opts:['反復処理','型注釈だけ','ファイル名変更だけ'],a:0,why:'forはiterableの各要素に対して処理を繰り返します。'},
+{t:'関数',keys:['def','関数','function'],body:`<h2>関数</h2><div class="formula">def add(a,b):\n    return a+b</div><p>処理に名前を付け、入力と出力を持たせて再利用できます。</p>`,q:'returnの役割は？',opts:['関数から値を返す','必ずループする','変数を削除する'],a:0,why:'returnは関数の呼び出し元へ値を返します。'},
+{t:'辞書とコレクション',keys:['dict','辞書'],body:`<h2>dict</h2><div class="formula">user = {"name":"A","score":90}</div><p>keyとvalueの対応でデータを持ちます。</p>`,q:'dictが得意なのは？',opts:['keyからvalueを参照する','画像を必ず分類する','OSを起動する'],a:0,why:'dictはkey-value対応を表す基本データ構造です。'},
+{t:'例外とデバッグ',keys:['例外','error','debug'],body:`<h2>例外とデバッグ</h2><p>エラー文を「失敗」ではなく現在地の観測値として読むのが重要です。再現条件→最小例→原因仮説の順で絞ります。</p>`,q:'デバッグで最初に有効なのは？',opts:['再現条件を確認する','全部書き直す','エラー文を無視する'],a:0,why:'再現できる失敗は原因探索の入口になります。'},
+{t:'小さな実装',keys:['実装','script'],body:`<h2>小さな実装</h2><p>入力→処理→出力が明確な小さなスクリプトを自力で作れれば、基礎知識が接続されています。</p>`,q:'学習の最後に小さく実装する利点は？',opts:['知識の抜けを発見できる','暗記だけで済む','エラーが絶対なくなる'],a:0,why:'実装は曖昧な理解を具体的な欠落として露出させます。'}
+];
+
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||{course:'attention',current:'',idx:0,mastered:[],logs:[],lastResult:null};
+const $=id=>document.getElementById(id);
+$('course').value=state.course;$('current').value=state.current;
+
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function lessons(){return C[state.course]||C.attention}
+function diagnose(text){
+ const ls=lessons(); const s=text.toLowerCase();
+ let best=0;
+ for(let i=0;i<ls.length;i++){
+   const hit=(ls[i].keys||[]).some(k=>s.includes(k.toLowerCase()));
+   if(hit) best=Math.max(best,i);
+ }
+ if(/わから|分から|曖昧|知ら/.test(s)) best=Math.max(0,best);
+ return Math.min(best,ls.length-1);
+}
+function renderMap(){
+ const ls=lessons(); $('progress').textContent=Math.round((state.mastered.length/ls.length)*100)+'%';$('mastered').textContent=state.mastered.length;$('logs').textContent=state.logs.length;
+ $('map').innerHTML=ls.map((x,i)=>`<div class="node ${state.mastered.includes(i)?'done':i===state.idx?'current':''}"><div class="dot">${state.mastered.includes(i)?'✓':i===state.idx?'◎':i+1}</div><div><div class="name">${x.t}${i===state.idx?' <span style="font-size:11px;color:#63d8ff">YOU ARE HERE</span>':''}</div><div class="sub">${state.mastered.includes(i)?'通過済み':i===state.idx?'現在の学習地点':'この先の経路'}</div>${i===state.idx?'<div class="why"><b>WHY NOW</b><br>この地点を理解すると、次の概念への探索枝を減らせます。</div>':''}</div></div>`).join('');
+}
+function renderLesson(){
+ const ls=lessons(); const L=ls[state.idx];
+ $('routeStrip').innerHTML=ls.map((x,i)=>`<span class="routeTag ${i===state.idx?'current':''}">${i+1}. ${x.t}</span>`).join('');
+ $('lesson').innerHTML=L.body;
+ $('checkpoint').innerHTML=`<div class="label">Checkpoint</div><b>${L.q}</b><div id="options">${L.opts.map((o,i)=>`<button class="option" data-opt="${i}">${o}</button>`).join('')}</div><button id="judgeBtn">回答を判定</button><button class="ghost" id="dontKnowBtn">分からないので迂回する</button><div id="result"></div>`;
+ let selected=null;
+ document.querySelectorAll('.option').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.opt);document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')});
+ $('judgeBtn').onclick=()=>{
+   if(selected===null){alert('選択肢を選んでください');return}
+   const ok=selected===L.a; $('result').className='result '+(ok?'ok':'ng');
+   $('result').innerHTML=(ok?'<b>✓ 到達判定：OK</b>':'<b>↺ 再ルーティング</b>')+'<br>'+L.why+(ok?'<button id="nextBtn">次の地点へ進む</button>':'<button id="retryBtn" class="secondary">説明を読み直す</button><button id="askBtn" class="ghost">ChatGPTに聞く質問文を作る</button>');
+   if(ok){
+     if(!state.mastered.includes(state.idx))state.mastered.push(state.idx);
+     save();renderMap();
+     $('nextBtn').onclick=()=>{if(state.idx<ls.length-1){state.idx++;state.lastResult=null;save();renderAll();}else{ $('result').innerHTML='<b>🏁 目的地に到達しました。</b><br>最初から自分の言葉で説明できるか、地図タブに戻って確認してみてください。';save();}};
+   }else{
+     $('retryBtn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+     $('askBtn').onclick=()=>{showScreen('Ask');$('askStuck').value=`「${L.t}」の説明を読んだが、チェック問題「${L.q}」を正しく答えられなかった。`;};
+   }
+ };
+ $('dontKnowBtn').onclick=()=>{showScreen('Ask');$('askStuck').value=`現在「${L.t}」で詰まっています。特に、${L.q} に答えられるほど理解できていません。`;};
+}
+function renderHistory(){
+ $('history').innerHTML=state.logs.length?state.logs.slice().reverse().map(x=>`<div class="historyItem"><b>${new Date(x.time).toLocaleString('ja-JP')}</b><br><span class="kbd">${x.node}</span><br>${x.a?'試した：'+x.a+'<br>':''}${x.o?'結果：'+x.o+'<br>':''}${x.dk?'得た理解：'+x.dk:''}</div>`).join(''):'<div class="tiny">まだ経験ログはありません。</div>';
+}
+function renderAll(){renderMap();renderLesson();renderHistory();save()}
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('screen'+name).classList.add('active');document.querySelectorAll('.bottomNav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));if(name==='Learn')renderLesson();window.scrollTo(0,0)}
+document.querySelectorAll('.bottomNav button').forEach(b=>b.onclick=()=>showScreen(b.dataset.screen));
+$('diagnoseBtn').onclick=()=>{state.course=$('course').value;state.current=$('current').value.trim();state.idx=diagnose(state.current);state.mastered=state.mastered.filter(i=>i<lessons().length);save();renderAll();showScreen('Learn')};
+$('course').onchange=()=>{state.course=$('course').value;state.idx=0;state.mastered=[];save();renderAll()};
+$('copyPromptBtn').onclick=async()=>{
+ const L=lessons()[state.idx]; const stuck=$('askStuck').value.trim();
+ const p=`Cognitive GPSで「${$('course').selectedOptions[0].textContent}」を学習しています。\n現在地：${L.t}\n現在の自己申告：${state.current||'未記入'}\n分からない点：${stuck||'うまく言語化できません'}\n\nこの現在地から理解できるように、①前提確認 ②直感的説明 ③数式または具体例 ④理解確認の1問、の順で説明してください。答えを一気に広げすぎず、探索空間を減らすように教えてください。`;
+ try{await navigator.clipboard.writeText(p);$('copyStatus').textContent='✓ 質問文をコピーしました。ChatGPTに貼り付けてください。'}catch(e){$('askStuck').value=p;$('copyStatus').textContent='コピーできなかったため、上の欄に質問文を表示しました。長押しでコピーしてください。'}
+};
+$('saveLogBtn').onclick=()=>{const L=lessons()[state.idx];state.logs.push({time:Date.now(),node:L.t,a:$('actionTried').value.trim(),o:$('outcome').value.trim(),dk:$('deltaK').value.trim()});['actionTried','outcome','deltaK'].forEach(id=>$(id).value='');save();renderHistory();renderMap()};
+$('resetBtn').onclick=()=>{if(confirm('Cognitive GPSの端末内データをすべて削除しますか？')){localStorage.removeItem(KEY);location.reload()}};
+renderAll();
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
 </script>
-</body></html>
+</body>
+</html>
