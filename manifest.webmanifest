@@ -1,0 +1,15 @@
+{
+  "name": "Cognitive GPS",
+  "short_name": "Cognitive GPS",
+  "description": "学習の現在地を測り、目的地までの次の最適な一歩を案内するローカル優先PWA。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101f",
+  "theme_color": "#0b1020",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
