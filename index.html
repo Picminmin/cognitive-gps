@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0b1020" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Cognitive GPS" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icons/icon-180.png" />
+<title>Cognitive GPS</title>
+<style>
+:root{--bg:#07101f;--panel:#0f1a2e;--panel2:#14233d;--text:#eef5ff;--muted:#9fb0c8;--accent:#62d6ff;--accent2:#8df0bd;--warn:#ffd479;--line:#243a5d}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07101f,#0b1425);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}.app{max-width:760px;margin:auto;padding:calc(20px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.brand{font-weight:800;letter-spacing:.2px}.pill{font-size:12px;padding:7px 10px;border-radius:999px;background:#10233c;color:var(--accent2);border:1px solid #214667}.hero,.card{background:rgba(15,26,46,.94);border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 40px rgba(0,0,0,.24)}.hero{padding:22px}.hero h1{font-size:28px;line-height:1.15;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.65;margin:0}.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}.card{padding:18px}.label{font-size:12px;color:var(--accent);font-weight:750;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}textarea,input,select{width:100%;background:#091526;color:var(--text);border:1px solid #294362;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}textarea{min-height:90px;resize:vertical}button{width:100%;border:0;border-radius:14px;padding:14px 16px;font-size:16px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#052033;margin-top:10px}.secondary{background:#12223a;color:var(--text);border:1px solid #2d4768}.map{margin-top:10px}.node{display:flex;gap:12px;align-items:flex-start;padding:12px 0;position:relative}.node:not(:last-child):after{content:"";position:absolute;left:16px;top:39px;bottom:-4px;width:2px;background:#2a4263}.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#183150;border:1px solid #31567f;font-weight:800;flex:0 0 auto}.node.done .dot{background:#173c31;color:var(--accent2)}.node.current .dot{background:#16384d;color:var(--accent);box-shadow:0 0 0 4px rgba(98,214,255,.08)}.node .name{font-weight:800}.node .sub{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}.why{margin-top:8px;padding:10px 12px;border-radius:12px;background:#0a182a;color:#c9d7ea;font-size:13px;line-height:1.55;border-left:3px solid var(--accent)}.route-step{padding:14px;border:1px solid #27415f;border-radius:16px;margin-top:10px;background:#0b182a}.route-step b{display:block;margin-bottom:6px}.route-step small{color:var(--muted);line-height:1.5}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#0a1728;border:1px solid #233b5a;border-radius:14px;padding:12px;text-align:center}.stat strong{display:block;font-size:21px}.stat span{font-size:11px;color:var(--muted)}.history{font-size:14px;color:#d5e0ef;line-height:1.6}.tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}.hidden{display:none}@media(min-width:700px){.grid.two{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">🧭 Cognitive GPS</div><div class="pill">LOCAL-FIRST</div></div>
+  <section class="hero"><h1>学習の「現在地」から、<br>次の一歩を案内する。</h1><p>目的地を能力として定義し、知識ノードを地図化。理解度と過去のつまずきから、今日の最短ルートを再計算します。</p></section>
+
+  <div class="grid two">
+    <section class="card">
+      <div class="label">Destination</div>
+      <textarea id="goal" placeholder="例：Self-Attentionを数式まで理解し、自分の言葉で説明・実装できるようになる"></textarea>
+      <div class="label" style="margin-top:14px">You are here</div>
+      <textarea id="current" placeholder="例：Embeddingは理解している。Q/K/Vは名前だけ知っている"></textarea>
+      <button id="planBtn">ルートを再計算</button>
+    </section>
+    <section class="card">
+      <div class="label">Navigation status</div>
+      <div class="stats"><div class="stat"><strong id="progress">0%</strong><span>到達度</span></div><div class="stat"><strong id="logs">0</strong><span>経験ログ</span></div><div class="stat"><strong id="streak">0</strong><span>前進回数</span></div></div>
+      <div class="tiny">この試作版は端末内だけに保存します。外部APIへ学習内容は送信しません。</div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:14px">
+    <div class="label">Knowledge map</div><div id="map" class="map"></div>
+  </section>
+
+  <section class="card" style="margin-top:14px">
+    <div class="label">Today's route</div><div id="route"></div>
+  </section>
+
+  <section class="card" style="margin-top:14px">
+    <div class="label">Experience protocol</div>
+    <select id="understanding"><option value="3">理解できた</option><option value="2">だいたい理解</option><option value="1">まだ曖昧</option><option value="0">分からない</option></select>
+    <textarea id="stuck" placeholder="どこで詰まった？" style="margin-top:10px"></textarea>
+    <textarea id="breakthrough" placeholder="何が突破口になった？" style="margin-top:10px"></textarea>
+    <textarea id="future" placeholder="次回の自分への一言" style="margin-top:10px"></textarea>
+    <button id="saveBtn">経験を保存して再ルーティング</button>
+    <button class="secondary" id="resetBtn">端末内データをリセット</button>
+  </section>
+
+  <section class="card" style="margin-top:14px"><div class="label">Past experience</div><div id="history" class="history">まだ記録はありません。</div></section>
+</div>
+<script>
+const KEY='cognitiveGPS.v3';
+const defaultNodes=['現在地を言語化する','前提概念を確認する','中心概念を直感で理解する','数式・構造に落とす','具体例で検証する','自分の言葉で説明する','小さく実装する','目的地に到達'];
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||{goal:'',current:'',idx:0,logs:[],streak:0};
+const $=id=>document.getElementById(id);$('goal').value=state.goal;$('current').value=state.current;
+function inferNodes(goal){const g=goal.toLowerCase();if(g.includes('attention')||g.includes('transformer'))return ['Embedding / token表現','Q・K・Vの役割','Attention scoreとsoftmax','重み付き和としてのAttention','Multi-Head Attention','Transformer全体との接続','数式を自分で説明','最小実装'];if(g.includes('python'))return ['文法の基礎','データ型と制御構文','関数','コレクション','例外とデバッグ','小さなスクリプト','ライブラリ利用','自力で実装'];if(g.includes('機械学習')||g.includes('machine learning'))return ['教師あり学習の目的','特徴量とラベル','損失関数','最適化','過学習と汎化','評価指標','モデル比較','小規模実装'];return defaultNodes}
+function whyFor(n,i){const reasons=['目的地への経路を正しく引くには、まず現在地の誤差を減らす必要があります。','先に前提を埋めることで、この先の説明を暗記ではなく構造として理解できます。','抽象概念はまず直感モデルを作ると、数式の各項に意味が乗ります。','直感を数式へ変換することで、説明可能な理解へ進みます。','具体例で予測と結果を照合し、誤解を早期に発見します。','説明できるかを試すと「分かったつもり」を検出できます。','実装は知識の抜けを強制的に露出させます。','ここまでできれば、目的地を「知っている」から「使える」へ移せます。'];return reasons[Math.min(i,reasons.length-1)]}
+function render(){const nodes=inferNodes(state.goal);state.idx=Math.max(0,Math.min(state.idx,nodes.length-1));$('progress').textContent=Math.round((state.idx/(nodes.length-1))*100)+'%';$('logs').textContent=state.logs.length;$('streak').textContent=state.streak;$('map').innerHTML=nodes.map((n,i)=>`<div class="node ${i<state.idx?'done':i===state.idx?'current':''}"><div class="dot">${i<state.idx?'✓':i===state.idx?'◎':i+1}</div><div><div class="name">${n}${i===state.idx?' <span style="color:#62d6ff;font-size:11px">YOU ARE HERE</span>':''}</div><div class="sub">${i<state.idx?'通過済み':i===state.idx?'現在の推奨チェックポイント':'この先の経路'}</div>${i===state.idx?`<div class="why"><b>WHY NOW</b><br>${whyFor(n,i)}</div>`:''}</div></div>`).join('');const steps=[state.idx,Math.min(state.idx+1,nodes.length-1)].filter((v,i,a)=>a.indexOf(v)===i);$('route').innerHTML=steps.map((i,k)=>`<div class="route-step"><b>${k===0?'1. 今やる':'2. 次に進む'} — ${nodes[i]}</b><small>${whyFor(nodes[i],i)}</small></div>`).join('');$('history').innerHTML=state.logs.length?state.logs.slice().reverse().slice(0,6).map(x=>`<div style="padding:10px 0;border-bottom:1px solid #213856"><b>${new Date(x.time).toLocaleDateString('ja-JP')}</b> 理解度 ${x.u}/3<br>${x.stuck?`詰まり：${x.stuck}<br>`:''}${x.breakthrough?`突破口：${x.breakthrough}<br>`:''}${x.future?`次回：${x.future}`:''}</div>`).join(''):'まだ記録はありません。';localStorage.setItem(KEY,JSON.stringify(state))}
+$('planBtn').onclick=()=>{state.goal=$('goal').value.trim();state.current=$('current').value.trim();if(!state.goal){alert('まず目的地を入力してください');return}render()};
+$('saveBtn').onclick=()=>{if(!state.goal){state.goal=$('goal').value.trim()}const u=Number($('understanding').value);state.logs.push({time:Date.now(),u,stuck:$('stuck').value.trim(),breakthrough:$('breakthrough').value.trim(),future:$('future').value.trim(),idx:state.idx});if(u>=2){state.idx++;state.streak++}else if(u===0&&state.idx>0){state.idx--}['stuck','breakthrough','future'].forEach(id=>$(id).value='');render()};
+$('resetBtn').onclick=()=>{if(confirm('端末内のCognitive GPSデータを削除しますか？')){localStorage.removeItem(KEY);location.reload()}};
+render();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+</script>
+</body></html>
